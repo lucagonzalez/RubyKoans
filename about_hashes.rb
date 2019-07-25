@@ -17,7 +17,7 @@ class AboutHashes < Neo::Koan
     hash = { :one => "uno", :two => "dos" }
     assert_equal "uno", hash[:one]
     assert_equal "dos", hash[:two]
-    assert_equal NIL, hash[:doesnt_exist]
+    assert_equal nil, hash[:doesnt_exist]
   end
 
   def test_accessing_hashes_with_fetch
