@@ -13,11 +13,30 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  verify(a, b, c)
-  if (a == b && a == c)
-    return :equilateral
-  elsif (a == b || a == c || b == c)
+#def triangle(a, b, c)
+#  verify(a, b, c)
+#  if (equals?(a,b) && equals?(a,c))
+#    if (equals?(b, c))
+#      return :equilateral
+#    end
+#  elsif (a == b || a == c || b == c)
+#    return :isosceles
+#  else
+#    return :scalene
+#  end
+#end
+
+def triangle(first_side, second_side, third_side)
+
+  verify(first_side, second_side, third_side)
+
+  if (equals?(first_side,second_side))
+    if (equals?(second_side, third_side))
+      return :equilateral
+    else
+      return :isosceles
+    end
+  elsif (equals?(first_side,third_side) || equals?(second_side, third_side))
     return :isosceles
   else
     return :scalene
@@ -33,6 +52,12 @@ def verify(a, b, c)
     raise TriangleError, "Negative length doesn't make sense"
   end
 end
+
+def equals?(first_side, second_side)
+  first_side == second_side
+end
+
+
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
