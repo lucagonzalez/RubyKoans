@@ -30,7 +30,53 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+
+  counting_hash = createScoring(dice)
+
+  finalScore = 0
+  counting_hash.each do |key, value|
+    if(key == 5 && value < 3)
+      finalScore += ((key * 10) * value)
+    elsif (key == 1)
+      if (value >= 3)
+        finalScore += 1000
+        value -= 3
+        if value > 0
+          finalScore += ((key * 100) * value)
+        end
+      else
+        finalScore += ((key * 100) * value)
+      end
+    else
+      if (value >= 3)
+        finalScore += (key * 100)
+        value -= 3
+      end
+      if value > 0
+        if key == 5
+          finalScore += ((key * 10) * value)
+        end
+      end
+    end
+  end
+  return finalScore
+end
+
+def createScoring(throws)
+
+  ponctuation_hash = { }
+  throws.each do |item|
+    if (ponctuation_hash[item] != nil)
+      ponctuation_hash[item] += 1
+    else
+      ponctuation_hash[item] = 1
+    end
+  end
+  return ponctuation_hash
+end
+
+def analyzeScoring(score_hash)
+
 end
 
 class AboutScoringProject < Neo::Koan
