@@ -33,50 +33,52 @@ def score(dice)
 
   counting_hash = createScoring(dice)
 
-  finalScore = 0
-  counting_hash.each do |key, value|
-    if(key == 5 && value < 3)
-      finalScore += ((key * 10) * value)
-    elsif (key == 1)
-      if (value >= 3)
-        finalScore += 1000
-        value -= 3
-        if value > 0
-          finalScore += ((key * 100) * value)
-        end
-      else
-        finalScore += ((key * 100) * value)
-      end
-    else
-      if (value >= 3)
-        finalScore += (key * 100)
-        value -= 3
-      end
-      if value > 0
-        if key == 5
-          finalScore += ((key * 10) * value)
-        end
-      end
-    end
-  end
-  return finalScore
+  return analyzeScoring(counting_hash)
+
 end
 
 def createScoring(throws)
 
   ponctuation_hash = { }
-  throws.each do |item|
-    if (ponctuation_hash[item] != nil)
-      ponctuation_hash[item] += 1
+  throws.each do |dice_face|
+    if (ponctuation_hash[dice_face] != nil)
+      ponctuation_hash[dice_face] += 1
     else
-      ponctuation_hash[item] = 1
+      ponctuation_hash[dice_face] = 1
     end
   end
   return ponctuation_hash
 end
 
-def analyzeScoring(score_hash)
+def analyzeScoring(counting_hash)
 
+  finalScore = 0
+  counting_hash.each do |dice_face, times_it_appears|
+    if(dice_face == 5 && times_it_appears < 3)
+      finalScore += ((dice_face * 10) * times_it_appears)
+    elsif (dice_face == 1)
+      if (times_it_appears >= 3)
+        finalScore += 1000
+        times_it_appears -= 3
+        if times_it_appears > 0
+          finalScore += ((dice_face * 100) * times_it_appears)
+        end
+      else
+        finalScore += ((dice_face * 100) * times_it_appears)
+      end
+    else
+      if (times_it_appears >= 3)
+        finalScore += (dice_face * 100)
+        times_it_appears -= 3
+      end
+      if times_it_appears > 0
+        if dice_face == 5
+          finalScore += ((dice_face * 10) * times_it_appears)
+        end
+      end
+    end
+  end
+  return finalScore
 end
 
 class AboutScoringProject < Neo::Koan
